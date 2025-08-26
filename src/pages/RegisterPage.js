@@ -100,7 +100,7 @@ const RegisterPage = () => {
         transition={{ duration: 0.8 }}
         className="w-full max-w-2xl bg-white/95 backdrop-blur-lg p-10 rounded-3xl shadow-2xl border-2 border-white/20 relative z-10 mx-4"
       >
-        {/* Header */}
+    
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
             <div className="bg-gradient-to-r from-green-600 to-teal-600 p-4 rounded-full">
@@ -223,7 +223,7 @@ const RegisterPage = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
-                {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                {showPassword ? <FiEye className="w-5 h-5" /> : <FiEyeOff className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -246,7 +246,7 @@ const RegisterPage = () => {
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
-                {showConfirmPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                {showConfirmPassword ? <FiEye className="w-5 h-5"/> : <FiEyeOff className="w-5 h-5"  />}
               </button>
             </div>
           </div>

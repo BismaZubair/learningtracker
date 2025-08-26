@@ -91,7 +91,7 @@ export const LearningProvider = ({ children }) => {
 
   const addTopic = (topic) => {
     const newTopic = {
-      id: Date.now().toString(), // Use string ID for consistency
+      id: Date.now().toString(), 
       name: topic.name,
       category: topic.category || '',
       priority: topic.priority || 'Medium',
@@ -116,7 +116,7 @@ export const LearningProvider = ({ children }) => {
 
   const logSession = (session) => {
     const newSession = {
-      id: Date.now().toString(), // Use string ID for consistency
+      id: Date.now().toString(), 
       topicId: session.topicId,
       duration: Number(session.duration) || 0,
       notes: session.notes || '',

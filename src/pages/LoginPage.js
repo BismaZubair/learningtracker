@@ -127,7 +127,7 @@ const LoginPage = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >
-                {showPassword ? <FiEyeOff className="w-4 h-4 md:w-5 md:h-5" /> : <FiEye className="w-4 h-4 md:w-5 md:h-5" />}
+                {showPassword ? <FiEye className="w-4 h-4 md:w-5 md:h-5" /> : <FiEyeOff className="w-4 h-4 md:w-5 md:h-5"  />}
               </button>
             </div>
           </div>
