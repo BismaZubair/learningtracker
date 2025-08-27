@@ -20,6 +20,12 @@ const LogSessionModal = () => {
   const [error, setError] = useState('');
   const durationInputRef = useRef(null);
 
+  // helper function for today date
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setIsLogModalOpen(false);
@@ -41,7 +47,7 @@ const LogSessionModal = () => {
       setFormData({
         duration: '',
         notes: '',
-        date: new Date().toISOString().split('T')[0]
+        date: getTodayDate()
       });
       setError('');
     }
@@ -103,7 +109,7 @@ const LogSessionModal = () => {
     setFormData({
       duration: '',
       notes: '',
-      date: new Date().toISOString().split('T')[0]
+      date: getTodayDate()
     });
   };
 
@@ -175,6 +181,7 @@ const LogSessionModal = () => {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
+                min={getTodayDate()}  
                 required
                 className="w-full rounded-xl border-2 border-gray-200 py-3 px-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200"
               />

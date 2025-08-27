@@ -19,7 +19,7 @@ const AddTopicModal = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user starts typing
+
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -28,7 +28,6 @@ const AddTopicModal = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    // Required field validation
     if (!formData.name.trim()) {
       newErrors.name = 'Topic name is required';
     }
@@ -41,11 +40,11 @@ const AddTopicModal = () => {
       newErrors.goalHours = 'Goal hours must be greater than 0';
     }
 
-    // Date validation - must be today or future
+  
     if (formData.targetDate) {
       const selectedDate = new Date(formData.targetDate);
       const today = new Date();
-      today.setHours(0, 0, 0, 0); // Set to start of today
+      today.setHours(0, 0, 0, 0); 
       
       if (selectedDate < today) {
         newErrors.targetDate = 'Target date cannot be in the past';
@@ -76,10 +75,12 @@ const AddTopicModal = () => {
   };
 
  
-  const getTodayDate = () => {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
-  };
+ const getTomorrowDate = () => {
+  const today = new Date();
+  today.setDate(today.getDate() + 1); 
+  return today.toISOString().split('T')[0];
+};
+
 
   const handleModalClose = () => {
     setIsAddModalOpen(false);
@@ -98,7 +99,7 @@ const AddTopicModal = () => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col">
-        {/* Header */}
+      
         <div className="flex justify-between items-center p-6 border-b border-gray-200">
           <h2 className="text-xl font-bold text-gray-800">Add New Learning Topic</h2>
           <button 
@@ -208,16 +209,17 @@ const AddTopicModal = () => {
                 Target Date
               </label>
               <input
-                type="date"
-                id="targetDate"
-                name="targetDate"
-                value={formData.targetDate}
-                onChange={handleChange}
-                min={getTodayDate()}
-                className={`w-full rounded-xl border-2 py-3 px-4 focus:ring-2 focus:ring-blue-200 transition-all duration-200 ${
-                  errors.targetDate ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
-                }`}
-              />
+                 type="date"
+                 id="targetDate"
+                 name="targetDate"
+                 value={formData.targetDate}
+                 onChange={handleChange}
+                 min={getTomorrowDate()}   
+                 className={`w-full rounded-xl border-2 py-3 px-4 focus:ring-2 focus:ring-blue-200 transition-all duration-200 ${
+                   errors.targetDate ? 'border-red-500 focus:border-red-500' : 'border-gray-200 focus:border-blue-500'
+                  }`}
+               />
+
               {errors.targetDate && (
                 <p className="mt-1 text-sm text-red-600">{errors.targetDate}</p>
               )}

@@ -33,14 +33,37 @@ const ProgressChart = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const studiedData = topics.map(topic => {
+    const progress = getTopicProgress(topic.id);
+    const isComplete = topic.goalHours > 0 && progress.totalHours >= topic.goalHours;
+    const isDeadlinePassed = topic.targetDate && new Date(topic.targetDate) < new Date();
+
+    return {
+      hours: parseFloat(progress.totalHours),
+      status: isComplete ? 'complete' : isDeadlinePassed ? 'deadline' : 'normal'
+    };
+  });
+
   const chartData = {
     labels: topics.map(topic => topic.name),
     datasets: [
       {
         label: 'Hours Studied',
-        data: topics.map(topic => parseFloat(getTopicProgress(topic.id).totalHours)),
-        backgroundColor: 'rgba(79, 70, 229, 0.7)',
-        borderColor: 'rgba(79, 70, 229, 1)',
+        data: studiedData.map(d => d.hours),
+        backgroundColor: studiedData.map(d =>
+          d.status === 'complete'
+            ? 'rgba(16, 185, 129, 0.8)' 
+            : d.status === 'deadline'
+            ? 'rgba(239, 68, 68, 0.8)' 
+            : 'rgba(79, 70, 229, 0.7)' 
+        ),
+        borderColor: studiedData.map(d =>
+          d.status === 'complete'
+            ? 'rgba(5, 150, 105, 1)'
+            : d.status === 'deadline'
+            ? 'rgba(220, 38, 38, 1)'
+            : 'rgba(79, 70, 229, 1)'
+        ),
         borderWidth: 1,
         borderRadius: 4,
         barPercentage: isMobile ? 0.6 : 0.8,
@@ -102,7 +125,14 @@ const ProgressChart = () => {
         usePointStyle: true,
         callbacks: {
           label: function(context) {
-            return `${context.dataset.label}: ${context.raw} hours`;
+            const status = studiedData[context.dataIndex].status;
+            if (status === 'deadline') {
+              return `Deadline Passed - ${context.raw} hours`;
+            } else if (status === 'complete') {
+              return `Completed - ${context.raw} hours`;
+            } else {
+              return `${context.dataset.label}: ${context.raw} hours`;
+            }
           }
         }
       }

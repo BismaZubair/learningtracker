@@ -15,7 +15,7 @@ export const LearningProvider = ({ children }) => {
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load user-specific data
+
   useEffect(() => {
     const loadUserData = () => {
       if (user) {
@@ -31,7 +31,7 @@ export const LearningProvider = ({ children }) => {
           setTopics(userTopics);
           setSessions(userSessions);
           
-          // Also check for legacy data format and migrate it
+       
           const legacyTopics = JSON.parse(localStorage.getItem('topics')) || [];
           const legacySessions = JSON.parse(localStorage.getItem('sessions')) || [];
           
@@ -40,7 +40,7 @@ export const LearningProvider = ({ children }) => {
             setTopics(legacyTopics);
             setSessions(legacySessions);
             
-            // Save migrated data to user-specific storage
+            
             const updatedUserData = { ...userData };
             updatedUserData[user.id] = {
               topics: legacyTopics,
@@ -49,7 +49,7 @@ export const LearningProvider = ({ children }) => {
             };
             localStorage.setItem('userData', JSON.stringify(updatedUserData));
             
-            // Clear legacy data
+           
             localStorage.removeItem('topics');
             localStorage.removeItem('sessions');
           }
@@ -68,7 +68,7 @@ export const LearningProvider = ({ children }) => {
     loadUserData();
   }, [user]);
 
-  // Save user-specific data
+  
   useEffect(() => {
     if (user && !isLoading) {
       try {
